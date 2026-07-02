@@ -13,7 +13,7 @@
                               d:DesignHeight="120"
                               d:DesignWidth="640">
     <StackPanel Spacing="6">
-        <Grid ColumnDefinitions="Auto,*,Auto" RowDefinitions="Auto,Auto">
+        <Grid ColumnDefinitions="Auto,*,Auto" RowDefinitions="Auto">
             <TextBlock Grid.Row="0" Grid.Column="0"
                        VerticalAlignment="Center"
                        Text="目标插件："
@@ -40,7 +40,7 @@
                     Click="ButtonRefreshPlugins_OnClick" />
         </Grid>
 
-        <Grid ColumnDefinitions="Auto,*,Auto,*" RowDefinitions="Auto">
+        <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto">
             <TextBlock Grid.Row="0" Grid.Column="0"
                        VerticalAlignment="Center"
                        Text="操作："
@@ -51,19 +51,14 @@
                 <ci:IconText Glyph="&#xE73E;" Text="强制启用" />
                 <ci:IconText Glyph="&#xE711;" Text="强制禁用" />
             </ComboBox>
-
-            <TextBlock Grid.Row="0" Grid.Column="2"
-                       VerticalAlignment="Center"
-                       Text="立即重启："
-                       Margin="12 0 6 0" />
-            <CheckBox Grid.Row="0" Grid.Column="3"
-                      IsChecked="{Binding Settings.RestartImmediately}"
-                      Content="变更后立刻重启 ClassIsland 以应用" />
         </Grid>
+
+        <CheckBox IsChecked="{Binding Settings.RestartImmediately}"
+                  Content="变更后立刻重启 ClassIsland 以应用" />
 
         <CheckBox IsChecked="{Binding Settings.QuietRestart}"
                   IsEnabled="{Binding Settings.RestartImmediately}"
-                  Margin="0 0 0 0"
+                  Margin="24 0 0 0"
                   Content="静默重启（不弹窗确认）" />
     </StackPanel>
 </ci:ActionSettingsControlBase>
