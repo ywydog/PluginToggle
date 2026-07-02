@@ -1,0 +1,14 @@
+id: PluginToggle
+name: PluginToggle
+description: 在自动化中添加一个"开关插件"行动，可启用、禁用或切换本地插件，并按需立刻重启 ClassIsland 让变更生效。
+entranceAssembly: PluginToggle.dll
+url: https://github.com/Example/PluginToggle
+version: 1.0.0.0
+apiVersion: 2.0.0.0
+author: Example
+readme: README.md
+icon: icon.png
+supportedOSPlatforms:
+  - Windows
+  - Linux
+  - OSX

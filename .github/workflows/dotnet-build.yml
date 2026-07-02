@@ -1,0 +1,39 @@
+name: Build PluginToggle
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    name: Build & Pack on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup .NET 8
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restore dependencies
+        run: dotnet restore PluginToggle.csproj
+
+      - name: Build CIPX
+        run: dotnet publish PluginToggle.csproj -p:CreateCipx=true --configuration Release --no-restore
+
+      - name: Upload .cipx artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: plugintoggle-cipx
+          path: cipx/PluginToggle.cipx
+          if-no-files-found: error

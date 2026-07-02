@@ -1,0 +1,69 @@
+<ci:ActionSettingsControlBase x:Class="PluginToggle.PluginToggleActionSettingsControl"
+                              x:TypeArguments="actionSettings:PluginToggleActionSettings"
+                              d:DataContext="{d:DesignInstance Type=local:PluginToggleActionSettingsControl}"
+                              xmlns="https://github.com/avaloniaui"
+                              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                              xmlns:ci="http://classisland.tech/schemas/xaml/core"
+                              xmlns:local="clr-namespace:PluginToggle"
+                              xmlns:actionSettings="clr-namespace:PluginToggle.Models"
+                              xmlns:plugin="clr-namespace:ClassIsland.Core.Models.Plugin;assembly=ClassIsland.Core"
+                              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                              mc:Ignorable="d"
+                              d:DesignHeight="120"
+                              d:DesignWidth="640">
+    <StackPanel Spacing="6">
+        <Grid ColumnDefinitions="Auto,*,Auto" RowDefinitions="Auto,Auto">
+            <TextBlock Grid.Row="0" Grid.Column="0"
+                       VerticalAlignment="Center"
+                       Text="目标插件："
+                       Margin="0 0 6 0" />
+            <ComboBox Grid.Row="0" Grid.Column="1"
+                      Name="PluginComboBox"
+                      HorizontalAlignment="Stretch"
+                      SelectedValue="{Binding Settings.PluginId, Mode=TwoWay}"
+                      SelectedValueBinding="{Binding Manifest.Id}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate DataType="plugin:PluginInfo">
+                        <StackPanel Orientation="Horizontal" Spacing="6">
+                            <TextBlock Text="{Binding Manifest.Name}" FontWeight="SemiBold" />
+                            <TextBlock Text="{Binding Manifest.Id}" Opacity="0.7" />
+                            <TextBlock Text="(未安装)" Foreground="Orange"
+                                       IsVisible="{Binding IsLocal, Converter={x:Static ObjectConverters.Equal}, ConverterParameter=False}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <Button Grid.Row="0" Grid.Column="2"
+                    Content="刷新"
+                    Margin="6 0 0 0"
+                    Click="ButtonRefreshPlugins_OnClick" />
+        </Grid>
+
+        <Grid ColumnDefinitions="Auto,*,Auto,*" RowDefinitions="Auto">
+            <TextBlock Grid.Row="0" Grid.Column="0"
+                       VerticalAlignment="Center"
+                       Text="操作："
+                       Margin="0 0 6 0" />
+            <ComboBox Grid.Row="0" Grid.Column="1"
+                      SelectedIndex="{Binding Settings.Operation}">
+                <ci:IconText Glyph="&#xE71D;" Text="切换当前状态" />
+                <ci:IconText Glyph="&#xE73E;" Text="强制启用" />
+                <ci:IconText Glyph="&#xE711;" Text="强制禁用" />
+            </ComboBox>
+
+            <TextBlock Grid.Row="0" Grid.Column="2"
+                       VerticalAlignment="Center"
+                       Text="立即重启："
+                       Margin="12 0 6 0" />
+            <CheckBox Grid.Row="0" Grid.Column="3"
+                      IsChecked="{Binding Settings.RestartImmediately}"
+                      Content="变更后立刻重启 ClassIsland 以应用" />
+        </Grid>
+
+        <CheckBox IsChecked="{Binding Settings.QuietRestart}"
+                  IsEnabled="{Binding Settings.RestartImmediately}"
+                  Margin="0 0 0 0"
+                  Content="静默重启（不弹窗确认）" />
+    </StackPanel>
+</ci:ActionSettingsControlBase>
