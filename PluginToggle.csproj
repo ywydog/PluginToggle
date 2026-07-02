@@ -7,10 +7,14 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>PluginToggle</RootNamespace>
     <AssemblyName>PluginToggle</AssemblyName>
+    <EnableDynamicLoading>true</EnableDynamicLoading>
+    <CreateCipx>true</CreateCipx>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ClassIsland.Core" Version="2.0.4" />
+    <PackageReference Include="ClassIsland.PluginSdk" Version="2.1.0">
+      <ExcludeAssets>runtime;native</ExcludeAssets>
+    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>

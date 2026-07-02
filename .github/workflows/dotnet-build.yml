@@ -25,11 +25,20 @@ jobs:
         with:
           dotnet-version: '8.0.x'
 
+      - name: Install PowerShell (用于生成插件包 MD5 摘要)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y wget apt-transport-https software-properties-common
+          wget -q "https://packages.microsoft.com/config/ubuntu/$(. /etc/os-release && echo $VERSION_ID)/packages-microsoft-prod.deb"
+          sudo dpkg -i packages-microsoft-prod.deb
+          sudo apt-get update
+          sudo apt-get install -y powershell
+
       - name: Restore dependencies
         run: dotnet restore PluginToggle.csproj
 
       - name: Build CIPX
-        run: dotnet publish PluginToggle.csproj -p:CreateCipx=true --configuration Release --no-restore
+        run: dotnet build PluginToggle.csproj --configuration Release --no-restore
 
       - name: Upload .cipx artifact
         uses: actions/upload-artifact@v4
