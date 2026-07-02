@@ -18,8 +18,7 @@ namespace PluginToggle.Actions;
     "PluginToggle.TogglePlugin",
     "开关插件",
     "\uE71D",
-    addDefaultToMenu: true,
-    defaultGroupToMenu: "系统")]
+    addDefaultToMenu: true)]
 public class PluginToggleAction(ILogger<PluginToggleAction> logger) : ActionBase<PluginToggleActionSettings>
 {
     private readonly ILogger<PluginToggleAction> _logger = logger;
